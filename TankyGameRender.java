@@ -2,10 +2,8 @@ package Tanky;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -24,9 +22,6 @@ public class TankyGameRender extends JPanel {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		
-		Graphics2D g2d = (Graphics2D) g;
-		
 		g.setColor(Color.gray.darker());
 		ArrayList<Rectangle> mazeWalls = tankyGame.getMazeWalls();
 		for (Rectangle rect: mazeWalls) {

@@ -5,16 +5,16 @@ import java.util.ArrayList;
 
 public abstract class Tank {
 
-	protected final int diameter = 32;
+	protected final int diameter = 24;
 	protected final int lifeTime = 15;
 	protected final double turnSpeed = 1;
+	protected final double speed = .4;
 	
 	protected TankyGame tankyGame;
 
 	protected Rectangle hitbox;
 	protected Vector2D position;
 	protected double angle;
-	protected double speed;
 	
 	protected int moveDir = 0;
 	protected int turnDir = 0;
@@ -24,11 +24,10 @@ public abstract class Tank {
 	
 	protected boolean dead = false;
 	
-	public Tank(TankyGame tankyGame, Vector2D position, double angle, double speed) {
+	public Tank(TankyGame tankyGame, Vector2D position, double angle) {
 		this.tankyGame = tankyGame;
 		this.position = position;
 		this.angle = angle;
-		this.speed = speed;
 		this.hitbox = new Rectangle((int) position.x, (int) position.y, diameter, diameter);
 		timeSpawned = System.currentTimeMillis();
 	}
@@ -65,4 +64,9 @@ public abstract class Tank {
 	public boolean isDead() {
 		return dead;
 	}
-}
+	
+	public void shoot() {
+		Vector2D bulletPos = new Vector2D(position.x+hitbox.width/2-Bullet.diameter/2 + Math.cos(Math.toRadians(angle))*diameter/1.5, position.y+hitbox.height/2-Bullet.diameter/2 + Math.sin(Math.toRadians(angle))*diameter/1.5);
+		tankyGame.spawnBullet(bulletPos, new Vector2D(Math.cos(Math.toRadians(angle)), Math.sin(Math.toRadians(angle))), .5);
+	}
+ }

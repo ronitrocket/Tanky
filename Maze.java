@@ -122,7 +122,6 @@ public class Maze {
 	// 1 - Up, 2 - Right, 3 - Down, 4 - Left
 	private ArrayList<Integer> validCells(int[][] maze, int cx, int cy) {
 		ArrayList<Integer> moves = new ArrayList<Integer>();
-		int random = randomGen.nextInt(100);
 		if (cy - 2 >= 0) {
 			moves.add(1);
 		}

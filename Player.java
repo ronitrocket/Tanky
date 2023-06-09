@@ -8,8 +8,8 @@ public class Player extends Tank {
 	private boolean player1 = false;
 	private boolean player2 = false;
 
-	public Player(TankyGame tankyGame, Vector2D position, double angle, double speed, boolean isPlayer1) {
-		super(tankyGame, position, angle, speed);
+	public Player(TankyGame tankyGame, Vector2D position, double angle, boolean isPlayer1) {
+		super(tankyGame, position, angle);
 		setPlayer1(isPlayer1);
 	}
 

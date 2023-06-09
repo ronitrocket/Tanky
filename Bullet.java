@@ -1,11 +1,12 @@
 package Tanky;
 
 import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 public class Bullet {
 
-	private final int radius = 6;
+	public static final int diameter = 6;
 	private final int lifeTime = 15;
 
 	private Rectangle hitbox;
@@ -22,11 +23,11 @@ public class Bullet {
 		this.position = position;
 		this.direction = direction;
 		this.speed = speed;
-		this.hitbox = new Rectangle((int) position.x, (int) position.y, radius, radius);
+		this.hitbox = new Rectangle((int) position.x, (int) position.y, diameter, diameter);
 		timeSpawned = System.currentTimeMillis();
 	}
 
-	public void update(double deltaTime, ArrayList<Rectangle> mazeWalls) {
+	public void update(double deltaTime, ArrayList<Rectangle> mazeWalls, ArrayList<Tank> tanks) {
 		
 		timeAlive = System.currentTimeMillis()-timeSpawned;
 		
@@ -62,6 +63,8 @@ public class Bullet {
 			}
 			direction.y = -direction.y;
 		}
+		
+		isCollidingTank(tanks);
 	}
 	
 	public boolean isCollidingWall(ArrayList<Rectangle> mazeWalls) {
@@ -72,6 +75,24 @@ public class Bullet {
 		}
 		return false;
 	}
+	
+	public void isCollidingTank(ArrayList<Tank> tanks) {
+		for (Tank tank : tanks) {
+			Ellipse2D.Double bulletHitbox = new Ellipse2D.Double(position.x, position.y, diameter, diameter);
+			Ellipse2D.Double tankHitbox = new Ellipse2D.Double(tank.position.x, tank.position.y, tank.diameter, tank.diameter);
+			if (circleIntersects(bulletHitbox, tankHitbox)) {
+				tank.dead = true;
+ 			}
+		}
+	}
+	
+	public boolean circleIntersects(Ellipse2D.Double circle1, Ellipse2D.Double circle2)
+    {
+        double distanceX = circle1.getCenterX() - circle2.getCenterX();
+        double distanceY = circle1.getCenterY() - circle2.getCenterY();
+        double radiusSum = circle2.width/2 + circle1.width/2;
+        return distanceX * distanceX + distanceY * distanceY <= radiusSum * radiusSum;
+    }
 	
 	public void setPosition(Vector2D position) {
 		this.position = position;

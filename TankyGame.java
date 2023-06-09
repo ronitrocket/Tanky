@@ -94,14 +94,14 @@ public class TankyGame {
 		bullets.add(new Bullet(position, direction, speed));
 	}
 	
-	public void spawnPlayer(Vector2D position, double angle, double speed, boolean isPlayer1) {
-		tanks.add(new Player(this, position, angle, speed, isPlayer1));
+	public void spawnPlayer(Vector2D position, double angle, boolean isPlayer1) {
+		tanks.add(new Player(this, position, angle, isPlayer1));
 	}
 	
 	public void update(double deltaTime) {
 		for (int i = 0; i < bullets.size(); i++) {
 			Bullet bullet = bullets.get(i);
-			bullet.update(deltaTime, mazeWalls);
+			bullet.update(deltaTime, mazeWalls, tanks);
 			if (bullet.isDead()) {
 				bullets.remove(bullet);
 			}

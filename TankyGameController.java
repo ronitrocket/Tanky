@@ -18,11 +18,13 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
     public boolean player1Down = false;
     public boolean player1Left = false;
     public boolean player1Right = false;
+    public boolean player1Shot = false;
     
     public boolean player2Up = false;
     public boolean player2Down = false;
     public boolean player2Left = false;
     public boolean player2Right = false;
+    public boolean player2Shot = false;
     
     public TankyGameController(TankyGUI tankyGUI, JButton exitButton)
     {
@@ -95,6 +97,17 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			}
 		}
 		
+		if (code == KeyEvent.VK_Q) {
+			Player player = tankyGame.getPlayer1();
+			if (player != null) {
+				if (!player1Shot) {
+					player.shoot();
+					player1Shot = true;
+				}
+				//player.turnDir = 1;
+			}
+		}
+		
 		if (code == KeyEvent.VK_DOWN) {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
@@ -123,6 +136,17 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Right = true;
+				//player.turnDir = 1;
+			}
+		}
+		
+		if (code == KeyEvent.VK_SPACE) {
+			Player player = tankyGame.getPlayer2();
+			if (player != null) {
+				if (!player2Shot) {
+					player.shoot();
+					player2Shot = true;
+				}
 				//player.turnDir = 1;
 			}
 		}
@@ -166,6 +190,16 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			}
 		}
 		
+		if (code == KeyEvent.VK_Q) {
+			Player player = tankyGame.getPlayer1();
+			if (player != null) {
+				if (player1Shot) {
+					player1Shot = false;
+				}
+				//player.turnDir = 1;
+			}
+		}
+		
 		if (code == KeyEvent.VK_DOWN) {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
@@ -194,6 +228,16 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Right = false;
+				//player.turnDir = 1;
+			}
+		}
+		
+		if (code == KeyEvent.VK_SPACE) {
+			Player player = tankyGame.getPlayer2();
+			if (player != null) {
+				if (player2Shot) {
+					player2Shot = false;
+				}
 				//player.turnDir = 1;
 			}
 		}

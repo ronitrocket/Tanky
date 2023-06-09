@@ -30,12 +30,17 @@ public class TankyMenuController implements ActionListener {
              tankyGame.maze = new Maze();
              tankyGame.maze.initializeMaze(tankyGame.mazeSizeX, tankyGame.mazeSizeY);
              tankyGame.generateMazeWalls(tankyGame.maze);
-             tankyGame.spawnPlayer(new Vector2D(random.nextInt(tankyGame.X_SIZE_GAME), random.nextInt(tankyGame.Y_SIZE_GAME)), random.nextDouble()*360, .5, true);
-             tankyGame.spawnPlayer(new Vector2D(random.nextInt(tankyGame.X_SIZE_GAME), random.nextInt(tankyGame.Y_SIZE_GAME)), random.nextDouble()*360, .5, false);
+             tankyGame.spawnPlayer(new Vector2D(random.nextInt(tankyGame.X_SIZE_GAME), random.nextInt(tankyGame.Y_SIZE_GAME)), random.nextDouble()*360, true);
+             tankyGame.spawnPlayer(new Vector2D(random.nextInt(tankyGame.X_SIZE_GAME), random.nextInt(tankyGame.Y_SIZE_GAME)), random.nextDouble()*360, false);
              tankyGUI.mainFrame.setSize(tankyGame.X_SIZE_GAME, tankyGame.Y_SIZE_GAME);    
              tankyGUI.mainFrame.setLocationRelativeTo(null);  
              tankyGUI.gamePanel.setVisible(true);
              tankyGUI.menuPanel.setVisible(false);
+        }
+		
+		if (e.getSource() == exitButton)
+        {
+             System.exit(0);
         }
 	}
 
