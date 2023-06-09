@@ -1,5 +1,6 @@
 package Tanky;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
@@ -10,59 +11,74 @@ public class TankyGUI extends JPanel {
 
 	// INSTANCE VARIABLES
 	public JFrame mainFrame;
-	public TankyGame tankyGame;
+
+	// CONSTANTS
+	public final int X_SIZE_MENU = 300;
+	public final int Y_SIZE_MENU = 300;
+	public final int X_SIZE_GAME = 1015;
+	public final int Y_SIZE_GAME = 750;
+	
+	public final int mazeSizeX = 35;
+	public final int mazeSizeY = 25;
 
 	// MENU PANEL
 	public JPanel menuPanel = new JPanel();
 	private JButton playButton = new JButton("Play");
 	private JButton menuExitButton = new JButton("Exit");
-	public TankyMenuController playController;
 
 	// GAME PANEL
-	public TankyGameRender gamePanel;
+	public TankyGameRender gamePanel = new TankyGameRender(this);
 	private JButton gameExitButton = new JButton("Exit");
-	public TankyGameController gameController;
 
 	// move to TankyGame
 	boolean inGame = false;
+
+	// figure out where to put this
+	public int hue = 0;
+	public Color color = Color.getHSBColor((float) hue / 255, 1, 1);
 	
 	Maze maze;
 
-	public TankyGUI(TankyGame tankyGame, JFrame mainFrame) {
+	public TankyGUI(JFrame mainFrame) {
 		super();
-		this.tankyGame = tankyGame;
 		this.mainFrame = mainFrame;
 //          this.game.setGUI(this);
 		this.setupView();
 		this.registerControllers();
 		this.update();
+		
+		maze = new Maze();
+		maze.initializeMaze(mazeSizeX, mazeSizeY);
+		System.out.println(maze);
 	}
 
 	private void setupView() {
-		menuPanel.setPreferredSize(new Dimension(tankyGame.X_SIZE_MENU, tankyGame.Y_SIZE_MENU));
+		menuPanel.setPreferredSize(new Dimension(X_SIZE_MENU, Y_SIZE_MENU));
 		menuPanel.add(playButton);
 		menuPanel.add(menuExitButton);
 		this.add(menuPanel);
-		gamePanel = new TankyGameRender(tankyGame);
-		gamePanel.setPreferredSize(new Dimension(tankyGame.X_SIZE_GAME, tankyGame.Y_SIZE_GAME));
+		gamePanel.setPreferredSize(new Dimension(X_SIZE_GAME, Y_SIZE_GAME));
 		gamePanel.add(gameExitButton);
 		this.add(gamePanel);
 		gamePanel.setVisible(false);
 	}
 
 	private void registerControllers() {
-		 playController = new TankyMenuController(this, playButton, menuExitButton);
+		 TankyMenuController playController = new TankyMenuController(this, playButton, menuExitButton);
 		 playButton.addActionListener(playController);
 		 menuExitButton.addActionListener(playController);
 		 
-		 gameController = new TankyGameController(this, gameExitButton);
+		 TankyGameController gameController = new TankyGameController(this, gameExitButton);
 		 gameExitButton.addActionListener(gameController);
-		 this.gamePanel.addKeyListener(gameController);
-		 this.gamePanel.setFocusable(true);
 	}
 
 	public void update() {
 		if (inGame) {
+			hue++;
+			if (hue == 256) {
+				hue = 0;
+			}
+			color = Color.getHSBColor((float) hue / 255, .5f, .7f);
 			gamePanel.repaint();
 		}
 	}

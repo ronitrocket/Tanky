@@ -8,10 +8,8 @@ public class TankyMain {
 
 		// Initialize the Frame
 		JFrame f = new JFrame("Tanky");
-		TankyGame tankyGame = new TankyGame(); // The game view
-		TankyGUI mainScreen = new TankyGUI(tankyGame, f); // The game view
-		tankyGame.setView(mainScreen);
-		f.setSize(tankyGame.X_SIZE_MENU, tankyGame.Y_SIZE_MENU);
+		TankyGUI mainScreen = new TankyGUI(f); // The game view
+		f.setSize(mainScreen.X_SIZE_MENU, mainScreen.Y_SIZE_MENU);
 		f.setResizable(true);
 		f.setLocation(300, 200);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +31,6 @@ public class TankyMain {
 			lastTime = currentTime;
 
 			if (deltaTime >= 1) {
-				tankyGame.update(deltaTime);
 				mainScreen.update();
 				deltaTime--;
 			}
