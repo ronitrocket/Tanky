@@ -14,7 +14,7 @@ public class Player extends Tank {
 	}
 
 	@Override
-	public void update(double deltaTime, ArrayList<Rectangle> mazeWalls) {
+	public void update(double deltaTime, ArrayList<Rectangle> mazeWalls, ArrayList<Tank> tanks) {
 		
 		turn();
 		

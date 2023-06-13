@@ -30,7 +30,7 @@ public class Maze {
 		
 		System.out.println(this + "\n\n\n\n\n");
 		
-		randomGen= new Random();
+		randomGen = new Random();
 		generateMaze(1,1,maze,3);
 		
 		for (int i = 0; i < ySize; i++) {

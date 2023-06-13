@@ -22,6 +22,10 @@ public class Vector2D {
 	public Vector2D addVector(Vector2D otherVector) {
 		return new Vector2D(this.x + otherVector.x, this.y + otherVector.y);
 	}
+	
+	public Vector2D subtractVector(Vector2D otherVector) {
+		return new Vector2D(this.x - otherVector.x, this.y - otherVector.y);
+	}
 
 	public double magnitude() {
 		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
@@ -33,5 +37,9 @@ public class Vector2D {
 	
 	public static double dot(Vector2D vector1, Vector2D vector2) {
 		return vector1.x * vector2.x + vector1.y * vector2.y;
+	}
+	
+	public double dist(Vector2D otherVector) {
+		return Math.sqrt(Math.pow(this.x - otherVector.x, 2) + Math.pow(this.y - otherVector.y, 2));
 	}
 }

@@ -3,17 +3,15 @@ package Tanky;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Random;
 
-public class TankyGame {
+public class TankyGame implements Runnable {
 
-	TankyGUI tankyGUI;
+	TankyGUI tankyGUI = null;
 	
 	boolean inGame = false;
 	
-	public int hue = 0;
-	public Color color = Color.getHSBColor((float) hue / 255, 1, 1);
-	
-	Maze maze;
+	private Thread gameThread;
 	
 	// CONSTANTS
 	public final int X_SIZE_MENU = 300;
@@ -27,20 +25,57 @@ public class TankyGame {
 	public final int X_SIZE_GAME = pixPerCell*(mazeSizeX-1);
 	public final int Y_SIZE_GAME = pixPerCell*(mazeSizeY);
 	
-	private final int wallThickness = 2;
+	private final int wallThickness = 3;
+	
+	private final double roundCountdown = 5;
+	
+	
+	private int rounds = 5;
+	private long roundEndTimer = -1;
+	
+	public int numPlayers = 1;
+	
+	boolean extendedTimer = false;
+	
+	private Maze maze;
 	
 	private ArrayList<Rectangle> mazeWalls;
 	private ArrayList<Tank> tanks;
 	private ArrayList<Bullet> bullets;
 	
-	public void setView(TankyGUI currentGUI) {
-		this.tankyGUI = currentGUI;
+	public TankyGame() {
+		gameThread = new Thread(this);
+		gameThread.start();
 		mazeWalls = new ArrayList<Rectangle>();
 		bullets = new ArrayList<Bullet>();
 		tanks = new ArrayList<Tank>();
 	}
 	
-	public void generateMazeWalls(Maze fromMaze) {
+	public void setView(TankyGUI currentGUI) {
+		this.tankyGUI = currentGUI;
+	}
+	
+	public void openMenuFrame()  {
+        tankyGUI.mainFrame.setSize(X_SIZE_MENU, Y_SIZE_MENU); 
+        tankyGUI.mainFrame.setLocationRelativeTo(null);  
+        tankyGUI.gamePanel.setVisible(false);
+        tankyGUI.menuPanel.setVisible(true);
+	}
+	
+	public void openGameFrame()  {
+		tankyGUI.mainFrame.setSize(X_SIZE_GAME, Y_SIZE_GAME);    
+		tankyGUI.mainFrame.setLocationRelativeTo(null);  
+		tankyGUI.gamePanel.setVisible(true);
+		tankyGUI.menuPanel.setVisible(false);
+	}
+	
+	public void initializeMaze() {
+		maze = new Maze();
+        maze.initializeMaze(mazeSizeX, mazeSizeY);
+        generateMazeWalls(maze);
+	}
+	
+	private void generateMazeWalls(Maze fromMaze) {
 		int[][] maze = fromMaze.getMaze();
 		int currX = 0, currY = 0;
 		for (int i = 1; i < mazeSizeY-1; i += 2) {
@@ -73,9 +108,14 @@ public class TankyGame {
 	}
 	
 	public void resetGame() {
+		tankyGUI.gameController.resetKeys();
 		mazeWalls = new ArrayList<Rectangle>();
 		bullets = new ArrayList<Bullet>();
 		tanks = new ArrayList<Tank>();
+		initializeMaze();
+		spawnPlayers();
+		extendedTimer = false;
+		roundEndTimer = -1;
 	}
 	
 	public ArrayList<Rectangle> getMazeWalls() {
@@ -98,22 +138,64 @@ public class TankyGame {
 		tanks.add(new Player(this, position, angle, isPlayer1));
 	}
 	
+	public void spawnNikolai(Vector2D position, double angle, boolean isPlayer1) {
+		tanks.add(new Nikolai(this, position, angle, isPlayer1));
+	}
+	
 	public void update(double deltaTime) {
-		for (int i = 0; i < bullets.size(); i++) {
-			Bullet bullet = bullets.get(i);
-			bullet.update(deltaTime, mazeWalls, tanks);
-			if (bullet.isDead()) {
-				bullets.remove(bullet);
+		if (inGame) {
+			
+			if (tanks.size() <= 1) {
+				
+				if (roundEndTimer == -1) {
+					roundEndTimer = System.currentTimeMillis();
+				} else {
+					long timeSinceRoundEnd = System.currentTimeMillis() - roundEndTimer;
+					if (tanks.size() <= 0 && !extendedTimer) {
+						extendedTimer = true;
+						roundEndTimer = System.currentTimeMillis();
+					}
+					if (timeSinceRoundEnd > roundCountdown*1000 && inGame) {
+						resetGame();
+						rounds--;
+						if (rounds <= 0) {
+							inGame = false;
+							openMenuFrame();
+						}
+						extendedTimer = false;
+						roundEndTimer = -1;
+					}
+				}
+			}
+			
+			for (int i = 0; i < bullets.size(); i++) {
+				Bullet bullet = bullets.get(i);
+				bullet.update(deltaTime, mazeWalls, tanks);
+				if (bullet.isDead()) {
+					bullets.remove(bullet);
+				}
+			}
+			
+			for (int i = 0; i < tanks.size(); i++) {
+				Tank tank = tanks.get(i);
+				tank.update(deltaTime, mazeWalls, tanks);
+				if (tank.isDead()) {
+					tanks.remove(tank);
+				}
 			}
 		}
-		
-		for (int i = 0; i < tanks.size(); i++) {
-			Tank tank = tanks.get(i);
-			tank.update(deltaTime, mazeWalls);
-			if (tank.isDead()) {
-				tanks.remove(tank);
-			}
+	}
+	
+	public void spawnPlayers() {
+		Random random = new Random();
+		for (int i = 0; i < numPlayers; i++) {
+			Vector2D pos = new Vector2D(random.nextInt(X_SIZE_GAME-pixPerCell)+pixPerCell, random.nextInt(Y_SIZE_GAME-pixPerCell)+pixPerCell);
+			pos = new Vector2D(pos.x-pos.x%pixPerCell, pos.y-pos.y%pixPerCell);
+			spawnPlayer(pos, random.nextDouble()*360, i % 2 == 0);
 		}
+		Vector2D pos = new Vector2D(random.nextInt(X_SIZE_GAME-pixPerCell)+pixPerCell, random.nextInt(Y_SIZE_GAME-pixPerCell)+pixPerCell);
+		pos = new Vector2D(pos.x-pos.x%pixPerCell, pos.y-pos.y%pixPerCell);
+		spawnNikolai(pos, random.nextDouble()*360, true);
 	}
 	
 	public Player getPlayer1() {
@@ -140,5 +222,33 @@ public class TankyGame {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public void run() {
+		double drawInterval = 1000 / 200;
+		double deltaTime = 0;
+		long lastTime = System.currentTimeMillis();
+		long currentTime;
+		
+		while (tankyGUI == null) {
+			
+		}
+
+		while (true) {
+
+			currentTime = System.currentTimeMillis();
+
+			deltaTime += (currentTime - lastTime) / drawInterval;
+
+			lastTime = currentTime;
+			
+			update(deltaTime);
+
+			if (deltaTime >= 1) {
+				tankyGUI.update();
+				deltaTime--;
+			}
+		}
 	}
 }

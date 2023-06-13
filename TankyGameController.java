@@ -37,39 +37,21 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 		TankyGame tankyGame = tankyGUI.tankyGame;
 		if (e.getSource() == exitButton)
         {
-             tankyGUI.inGame = false;
-             tankyGUI.mainFrame.setSize(tankyGame.X_SIZE_MENU, tankyGame.Y_SIZE_MENU); 
-             tankyGUI.mainFrame.setLocationRelativeTo(null);  
-             tankyGUI.gamePanel.setVisible(false);
-             tankyGUI.menuPanel.setVisible(true);
-             tankyGame.resetGame();
+             tankyGame.inGame = false;
+             tankyGame.openMenuFrame();
         }
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
-		Random random = new Random();
 		
 		TankyGame tankyGame = tankyGUI.tankyGame;
-		
-		if (code == KeyEvent.VK_B) {
-			tankyGame.spawnBullet(new Vector2D(random.nextInt(tankyGame.X_SIZE_GAME), random.nextInt(tankyGame.Y_SIZE_GAME)), new Vector2D(random.nextDouble()*10-5, random.nextDouble()*10-5), .5);
-			tankyGame.spawnBullet(new Vector2D(random.nextInt(tankyGame.X_SIZE_GAME), random.nextInt(tankyGame.Y_SIZE_GAME)), new Vector2D(random.nextDouble()*10-5, random.nextDouble()*10-5), .5);
-			tankyGame.spawnBullet(new Vector2D(random.nextInt(tankyGame.X_SIZE_GAME), random.nextInt(tankyGame.Y_SIZE_GAME)), new Vector2D(random.nextDouble()*10-5, random.nextDouble()*10-5), .5);
-			tankyGame.spawnBullet(new Vector2D(random.nextInt(tankyGame.X_SIZE_GAME), random.nextInt(tankyGame.Y_SIZE_GAME)), new Vector2D(random.nextDouble()*10-5, random.nextDouble()*10-5), .5);
-			
-		}
-		
-		if (code == KeyEvent.VK_T) {
-			//tankyGame.spawnTank(new Vector2D(random.nextInt(tankyGame.X_SIZE_GAME), random.nextInt(tankyGame.Y_SIZE_GAME)), random.nextDouble()*360, .5);
-		}
 		
 		if (code == KeyEvent.VK_S) {
 			Player player = tankyGame.getPlayer1();
 			if (player != null) {
 				player1Down = true;
-				//player.moveDir = -1;
 			}
 		}
 		
@@ -77,7 +59,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer1();
 			if (player != null) {
 				player1Up = true;
-				//player.moveDir = 1;
 			}
 		}
 		
@@ -85,7 +66,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer1();
 			if (player != null) {
 				player1Left = true;
-				//player.turnDir = -1;
 			}
 		}
 		
@@ -93,7 +73,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer1();
 			if (player != null) {
 				player1Right = true;
-				//player.turnDir = 1;
 			}
 		}
 		
@@ -104,7 +83,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 					player.shoot();
 					player1Shot = true;
 				}
-				//player.turnDir = 1;
 			}
 		}
 		
@@ -112,7 +90,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Down = true;
-				//player.moveDir = -1;
 			}
 		}
 		
@@ -120,7 +97,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Up = true;
-				//player.moveDir = 1;
 			}
 		}
 		
@@ -128,7 +104,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Left = true;
-				//player.turnDir = -1;
 			}
 		}
 		
@@ -136,7 +111,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Right = true;
-				//player.turnDir = 1;
 			}
 		}
 		
@@ -147,7 +121,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 					player.shoot();
 					player2Shot = true;
 				}
-				//player.turnDir = 1;
 			}
 		}
 	}
@@ -162,7 +135,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer1();
 			if (player != null) {
 				player1Down = false;
-				//player.moveDir = -1;
 			}
 		}
 		
@@ -170,7 +142,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer1();
 			if (player != null) {
 				player1Up = false;
-				//player.moveDir = 1;
 			}
 		}
 		
@@ -178,7 +149,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer1();
 			if (player != null) {
 				player1Left = false;
-				//player.turnDir = -1;
 			}
 		}
 		
@@ -186,7 +156,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer1();
 			if (player != null) {
 				player1Right = false;
-				//player.turnDir = 1;
 			}
 		}
 		
@@ -196,7 +165,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 				if (player1Shot) {
 					player1Shot = false;
 				}
-				//player.turnDir = 1;
 			}
 		}
 		
@@ -204,7 +172,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Down = false;
-				//player.moveDir = -1;
 			}
 		}
 		
@@ -212,7 +179,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Up = false;
-				//player.moveDir = 1;
 			}
 		}
 		
@@ -220,7 +186,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Left = false;
-				//player.turnDir = -1;
 			}
 		}
 		
@@ -228,7 +193,6 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 			Player player = tankyGame.getPlayer2();
 			if (player != null) {
 				player2Right = false;
-				//player.turnDir = 1;
 			}
 		}
 		
@@ -238,8 +202,21 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 				if (player2Shot) {
 					player2Shot = false;
 				}
-				//player.turnDir = 1;
 			}
 		}
+	}
+	
+	public void resetKeys() {
+		player1Up = false;
+	    player1Down = false;
+	    player1Left = false;
+	    player1Right = false;
+	    player1Shot = false;
+	    
+	    player2Up = false;
+	    player2Down = false;
+	    player2Left = false;
+	    player2Right = false;
+	    player2Shot = false;
 	}
 }

@@ -29,6 +29,8 @@ public class Bullet {
 
 	public void update(double deltaTime, ArrayList<Rectangle> mazeWalls, ArrayList<Tank> tanks) {
 		
+		moveToValidLocation(deltaTime, mazeWalls);
+		
 		timeAlive = System.currentTimeMillis()-timeSpawned;
 		
 		if (timeAlive > 1000*lifeTime) {
@@ -67,6 +69,58 @@ public class Bullet {
 		isCollidingTank(tanks);
 	}
 	
+	public void moveToValidLocation(double deltaTime, ArrayList<Rectangle> mazeWalls) {
+		if (direction.unit().x <= direction.unit().y) {
+			int debounce = 1000;
+			if (isCollidingWall(mazeWalls)) {
+				while (isCollidingWall(mazeWalls)) {
+					setPosition(position.addVector(new Vector2D(-direction.unit().x * speed * deltaTime, 0)));
+					if (debounce <= 0) {
+						break;
+					}
+					debounce--;
+				}
+				direction.x = -direction.x;
+			}
+			
+			debounce = 1000;
+			if (isCollidingWall(mazeWalls)) {
+				while (isCollidingWall(mazeWalls)) {
+					setPosition(position.addVector(new Vector2D(0, -direction.unit().y * speed*deltaTime)));
+					if (debounce <= 0) {
+						break;
+					}
+					debounce--;
+				}
+				direction.y = -direction.y;
+			}
+		} else {
+			int debounce = 1000;
+			if (isCollidingWall(mazeWalls)) {
+				while (isCollidingWall(mazeWalls)) {
+					setPosition(position.addVector(new Vector2D(0, -direction.unit().y * speed*deltaTime)));
+					if (debounce <= 0) {
+						break;
+					}
+					debounce--;
+				}
+				direction.y = -direction.y;
+			}
+			
+			debounce = 1000;
+			if (isCollidingWall(mazeWalls)) {
+				while (isCollidingWall(mazeWalls)) {
+					setPosition(position.addVector(new Vector2D(-direction.unit().x * speed * deltaTime, 0)));
+					if (debounce <= 0) {
+						break;
+					}
+					debounce--;
+				}
+				direction.x = -direction.x;
+			}
+		}
+	}
+	
 	public boolean isCollidingWall(ArrayList<Rectangle> mazeWalls) {
 		for (Rectangle wall : mazeWalls) {
 			if (this.hitbox.intersects(wall)) {
@@ -82,6 +136,7 @@ public class Bullet {
 			Ellipse2D.Double tankHitbox = new Ellipse2D.Double(tank.position.x, tank.position.y, tank.diameter, tank.diameter);
 			if (circleIntersects(bulletHitbox, tankHitbox)) {
 				tank.dead = true;
+				dead = true;
  			}
 		}
 	}

@@ -14,7 +14,7 @@ public class TankyGameRender extends JPanel {
 	
 	int wallThickness = 5;
 	
-	public final boolean showHitboxes = false;
+	public final boolean showHitboxes = true;
 	
 	public TankyGameRender(TankyGame tankyGame) {
 		this.tankyGame = tankyGame;
@@ -38,10 +38,10 @@ public class TankyGameRender extends JPanel {
 		ArrayList<Tank> tanks = tankyGame.getTanks();
 		for (int i = 0; i < tanks.size(); i++) {
 			Tank tank = tanks.get(i);
-			g.setColor(Color.green);
+			g.setColor(tank.color);
 			g.fillOval(tank.getHitbox().x, tank.getHitbox().y, tank.getHitbox().width, tank.getHitbox().height);
 			
-			g.setColor(Color.green.darker());
+			g.setColor(tank.color.darker());
 			g.fillOval(tank.getHitbox().x+tank.getHitbox().width/2-tank.getHitbox().width/4, tank.getHitbox().y+tank.getHitbox().height/2-tank.getHitbox().height/4, tank.getHitbox().width/2, tank.getHitbox().height/2);
 			g.fillPolygon(getBarrelShape(tank));
 		}
@@ -60,6 +60,12 @@ public class TankyGameRender extends JPanel {
 			for (int i = 0; i < tanks.size(); i++) {
 				Tank tank = tanks.get(i);
 				g.drawOval(tank.getHitbox().x, tank.getHitbox().y, tank.getHitbox().width, tank.getHitbox().height);
+				if (tank instanceof Nikolai) {
+					Nikolai nikolai = (Nikolai) tank;
+					g.drawLine((int) nikolai.leftWhisker.x1, (int) nikolai.leftWhisker.y1, (int) nikolai.leftWhisker.x2, (int) nikolai.leftWhisker.y2);
+					g.drawLine((int) nikolai.rightWhisker.x1, (int) nikolai.rightWhisker.y1, (int) nikolai.rightWhisker.x2, (int) nikolai.rightWhisker.y2);
+					g.drawLine((int) nikolai.raycast.x1, (int) nikolai.raycast.y1, (int) nikolai.raycast.x2, (int) nikolai.raycast.y2);
+				}
 			}
 		}
 	}
