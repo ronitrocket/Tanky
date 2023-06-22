@@ -10,6 +10,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+//TankyGUI
+//Final Programming Assignment - Tanky
+/**
+* The view for the game
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class TankyGUI extends JPanel {
 
 	// INSTANCE VARIABLES
@@ -155,4 +164,4 @@ public class TankyGUI extends JPanel {
 			gamePanel.repaint();
 		}
 	}
-}
+}// end of class

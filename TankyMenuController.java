@@ -7,6 +7,15 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 
+//TankyMenuController
+//Final Programming Assignment - Tanky
+/**
+* The controller for the menu panel
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class TankyMenuController implements ActionListener {
 
 	// Instance Variables
@@ -146,4 +155,4 @@ public class TankyMenuController implements ActionListener {
 		}
 	}
 
-}
+}// end of class

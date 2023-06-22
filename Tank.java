@@ -4,6 +4,15 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+//Tank
+//Final Programming Assignment - Tanky
+/**
+* Abstract class that represents a tank.
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public abstract class Tank {
 
 	
@@ -173,4 +182,4 @@ public abstract class Tank {
 		}
 		return null;
 	}
- }
+ }// end of class

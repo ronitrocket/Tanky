@@ -7,6 +7,15 @@ import java.io.File;
 
 import javax.swing.JButton;
 
+//TankyWinnerController
+//Final Programming Assignment - Tanky
+/**
+* The controller for the winner panel
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class TankyWinnerController implements ActionListener {
 
 	// Instance Variables
@@ -71,4 +80,4 @@ public class TankyWinnerController implements ActionListener {
 			}
 		}
 	}
-}
+}// end of class

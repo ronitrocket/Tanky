@@ -2,6 +2,15 @@ package Tanky;
 
 import javax.swing.JFrame;
 
+//TankyMain
+//Final Programming Assignment - Tanky
+/**
+* The main class that initializes the model and view
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class TankyMain {
 
 	public static void main(String[] args) {
@@ -21,4 +30,4 @@ public class TankyMain {
 		f.setVisible(true);
 	}
 
-}
+}// end of class

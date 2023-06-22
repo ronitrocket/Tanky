@@ -9,6 +9,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
+//TankyGame
+//Final Programming Assignment - Tanky
+/**
+* The model for the game
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class TankyGame implements Runnable {
 
 	// Instance Variables
@@ -495,4 +504,4 @@ public class TankyGame implements Runnable {
 			}
 		}
 	}
-}
+}// end of class

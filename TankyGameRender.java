@@ -9,6 +9,15 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+//TankyGameRender
+//Final Programming Assignment - Tanky
+/**
+* The panel that displays the game
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class TankyGameRender extends JPanel {
 	
 	// Instance Variables
@@ -160,4 +169,4 @@ public class TankyGameRender extends JPanel {
 
 		return new Vector2D(x2 + center.x, y2 + center.y);
 	}
-}
+}// end of class

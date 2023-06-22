@@ -86,4 +86,4 @@ public class AudioClip {
 			clip.stop();
 		}
 	}
-}
+}// end of class

@@ -5,6 +5,15 @@ import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
+//Nikolai
+//Final Programming Assignment - Tanky
+/**
+* Class that represents an AI player, and includes all relevant code for it's behaviour
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class Nikolai extends Tank {
 	
 	// Instance Variables
@@ -566,4 +575,4 @@ public class Nikolai extends Tank {
 
 		return new Vector2D(x2 + center.x, y2 + center.y);
 	}
-}
+}// end of class

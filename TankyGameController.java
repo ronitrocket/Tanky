@@ -7,6 +7,15 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 
+//TankyGameController
+//Final Programming Assignment - Tanky
+/**
+* The controller for the game panel
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class TankyGameController extends KeyAdapter implements ActionListener {
 	
 	//Instance Variables
@@ -234,4 +243,4 @@ public class TankyGameController extends KeyAdapter implements ActionListener {
 	    player2Right = false;
 	    player2Shot = false;
 	}
-}
+}// end of class

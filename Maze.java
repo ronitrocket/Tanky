@@ -3,6 +3,15 @@ package Tanky;
 import java.util.ArrayList;
 import java.util.Random;
 
+//Maze
+//Final Programming Assignment - Tanky
+/**
+* Class that represents a Maze, and handles all creation of the maze and generation
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class Maze {
 
 	// Instance Variables
@@ -210,4 +219,4 @@ public class Maze {
 		}
 		return string;
 	}
-}
+}// end of class

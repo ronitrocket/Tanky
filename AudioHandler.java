@@ -128,4 +128,4 @@ public class AudioHandler implements Runnable {
 	public void stopAudio(AudioClip clip) {
 		clipsToStop.add(clip);
 	}
-}
+}// end of class

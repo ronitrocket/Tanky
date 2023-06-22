@@ -294,4 +294,4 @@ public class Bullet {
 	public static int getDiameter() {
 		return diameter;
 	}
-}
+}// end of class

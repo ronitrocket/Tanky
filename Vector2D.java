@@ -91,4 +91,4 @@ public class Vector2D {
 	public String toString() {
 		return Double.toString(x) + ", " + Double.toString(y);
 	}
-}
+}// end of class

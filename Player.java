@@ -4,6 +4,15 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+//Player
+//Final Programming Assignment - Tanky
+/**
+* Class that represents a human player, and includes all relevant code for it's behaviour
+* 
+* @author ronittaleti
+*/
+//Created By: Ronit Taleti
+//Last Modified: Jun 20th 2023
 public class Player extends Tank {
 	
 	// Instance Variables
@@ -113,4 +122,4 @@ public class Player extends Tank {
 		this.player1 = player1;
 		this.player2 = !player1;
 	}
-}
+}// end of class
